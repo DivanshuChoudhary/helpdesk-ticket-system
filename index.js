@@ -6,6 +6,8 @@ const ticketRoutes = require("./routes/ticketRoutes");
 
 const loggerMiddleware = require("./middleware/loggerMiddleware");
 
+const errorHandler = require("./middleware/errorHandler");
+
 app.use(express.json());
 
 app.use(loggerMiddleware);
@@ -28,7 +30,7 @@ app.get("/health", (req, res) => {
     res.send("Server is running successfully ✅");
 });
 
-
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

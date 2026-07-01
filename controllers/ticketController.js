@@ -5,6 +5,14 @@ const getAllTickets = (req, res) => {
     res.json(tickets);
 };
 
+const getAllTickets = (req, res) => {
+
+    throw new Error("Testing Global Error Handler");
+
+    res.json(tickets);
+
+};
+
 // GET Ticket By ID
 const getTicketById = (req, res) => {
 
