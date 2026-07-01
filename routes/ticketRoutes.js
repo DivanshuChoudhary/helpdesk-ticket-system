@@ -36,33 +36,10 @@ router.get("/", getAllTickets);
 
 
 // GET Ticket By ID
-router.get("/:id", (req, res) => {
-
-    const ticketId = Number(req.params.id);
-
-    const ticket = tickets.find((item) => item.id === ticketId);
-
-    if (!ticket) {
-        return res.status(404).json({
-            message: "Ticket not found"
-        });
-    }
-
-    res.json(ticket);
-});
+router.get("/:id", getTicketById);
 
 // POST Ticket
-router.post("/", (req, res) => {
+router.post("/", createTicket);
 
-    const newTicket = req.body;
-
-    tickets.push(newTicket);
-
-    res.status(201).json({
-        message: "Ticket created successfully",
-        ticket: newTicket
-    });
-
-});
 
 module.exports = router;
