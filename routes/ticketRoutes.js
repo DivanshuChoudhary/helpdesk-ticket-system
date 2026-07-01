@@ -9,6 +9,8 @@ const {
     deleteTicket
 } = require("../controllers/ticketController");
 
+const validateTicket = require("../middleware/validateTicket");
+
 const tickets = [
     {
         id: 1,
@@ -41,7 +43,7 @@ router.get("/", getAllTickets);
 router.get("/:id", getTicketById);
 
 // POST Ticket
-router.post("/", createTicket);
+router.post("/", validateTicket, createTicket);
 
 router.put("/:id", updateTicket);
 
