@@ -106,11 +106,25 @@ const searchTickets = (req, res) => {
 
 };
 
+// FILTER Tickets By Status
+const filterTicketsByStatus = (req, res) => {
+
+    const { status } = req.query;
+
+    const filteredTickets = tickets.filter((ticket) =>
+        ticket.status.toLowerCase() === status.toLowerCase()
+    );
+
+    res.json(filteredTickets);
+
+};
+
 module.exports = {
     getAllTickets,
     getTicketById,
     createTicket,
     updateTicket,
     deleteTicket,
-    searchTickets
+    searchTickets,
+    filterTicketsByStatus
 };
