@@ -2,7 +2,11 @@ const express = require("express");
 
 const app = express();
 
+const ticketRoutes = require("./routes/ticketRoutes");
+
 app.use(express.json());
+
+app.use("/tickets", ticketRoutes);
 
 const PORT = 3000;
 
