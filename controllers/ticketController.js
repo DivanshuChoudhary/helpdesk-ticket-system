@@ -61,9 +61,34 @@ const updateTicket = (req, res) => {
 
 };
 
+// DELETE Ticket
+const deleteTicket = (req, res) => {
+
+    const ticketId = Number(req.params.id);
+
+    const ticketIndex = tickets.findIndex(
+        (item) => item.id === ticketId
+    );
+
+    if (ticketIndex === -1) {
+        return res.status(404).json({
+            message: "Ticket not found"
+        });
+    }
+
+    const deletedTicket = tickets.splice(ticketIndex, 1);
+
+    res.json({
+        message: "Ticket deleted successfully",
+        ticket: deletedTicket[0]
+    });
+
+};
+
 module.exports = {
     getAllTickets,
     getTicketById,
     createTicket,
-    updateTicket
+    updateTicket,
+    deleteTicket
 };
