@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
+const {
+    getAllTickets,
+    getTicketById,
+    createTicket
+} = require("../controllers/ticketController");
+
 const tickets = [
     {
         id: 1,
@@ -26,9 +32,8 @@ const tickets = [
 ];
 
 // GET All Tickets
-router.get("/", (req, res) => {
-    res.json(tickets);
-});
+router.get("/", getAllTickets);
+
 
 // GET Ticket By ID
 router.get("/:id", (req, res) => {
