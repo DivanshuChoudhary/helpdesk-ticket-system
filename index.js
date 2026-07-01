@@ -2,6 +2,8 @@ const express = require("express");
 
 const app = express();
 
+app.use(express.json());
+
 const PORT = 3000;
 
 const tickets = [
@@ -57,6 +59,19 @@ app.get("/tickets/:id", (req, res) => {
     }
 
     res.json(ticket);
+
+});
+
+app.post("/tickets", (req, res) => {
+
+    const newTicket = req.body;
+
+    tickets.push(newTicket);
+
+    res.status(201).json({
+        message: "Ticket created successfully",
+        ticket: newTicket
+    });
 
 });
 
