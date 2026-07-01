@@ -36,8 +36,34 @@ const createTicket = (req, res) => {
 
 };
 
+// UPDATE Ticket
+const updateTicket = (req, res) => {
+
+    const ticketId = Number(req.params.id);
+
+    const ticket = tickets.find((item) => item.id === ticketId);
+
+    if (!ticket) {
+        return res.status(404).json({
+            message: "Ticket not found"
+        });
+    }
+
+    ticket.title = req.body.title;
+    ticket.description = req.body.description;
+    ticket.status = req.body.status;
+    ticket.priority = req.body.priority;
+
+    res.json({
+        message: "Ticket updated successfully",
+        ticket
+    });
+
+};
+
 module.exports = {
     getAllTickets,
     getTicketById,
-    createTicket
+    createTicket,
+    updateTicket
 };

@@ -4,7 +4,8 @@ const router = express.Router();
 const {
     getAllTickets,
     getTicketById,
-    createTicket
+    createTicket,
+    updateTicket
 } = require("../controllers/ticketController");
 
 const tickets = [
@@ -40,6 +41,8 @@ router.get("/:id", getTicketById);
 
 // POST Ticket
 router.post("/", createTicket);
+
+router.put("/:id", updateTicket);
 
 
 module.exports = router;
