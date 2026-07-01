@@ -119,6 +119,26 @@ const filterTicketsByStatus = (req, res) => {
 
 };
 
+// TICKET STATISTICS
+const getTicketStats = (req, res) => {
+
+    const totalTickets = tickets.length;
+
+    const openTickets = tickets.filter(ticket => ticket.status === "Open").length;
+
+    const closedTickets = tickets.filter(ticket => ticket.status === "Closed").length;
+
+    const inProgressTickets = tickets.filter(ticket => ticket.status === "In Progress").length;
+
+    res.json({
+        totalTickets,
+        openTickets,
+        closedTickets,
+        inProgressTickets
+    });
+
+};
+
 module.exports = {
     getAllTickets,
     getTicketById,
@@ -126,5 +146,6 @@ module.exports = {
     updateTicket,
     deleteTicket,
     searchTickets,
-    filterTicketsByStatus
+    filterTicketsByStatus,
+    getTicketStats
 };

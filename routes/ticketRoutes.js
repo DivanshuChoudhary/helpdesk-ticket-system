@@ -8,8 +8,9 @@ const {
     updateTicket,
     deleteTicket,
     searchTickets,
-    filterTicketsByStatus
-} = require("../controllers/ticketController");
+    filterTicketsByStatus,
+    getTicketStats
+} = require("../controllers/ticketController");;
 
 const tickets = [
     {
@@ -41,6 +42,8 @@ router.get("/", getAllTickets);
 router.get("/search", searchTickets);
 
 router.get("/filter", filterTicketsByStatus);
+
+router.get("/stats", getTicketStats);
 
 // GET Ticket By ID
 router.get("/:id", getTicketById);
