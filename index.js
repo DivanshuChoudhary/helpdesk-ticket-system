@@ -4,7 +4,11 @@ const app = express();
 
 const ticketRoutes = require("./routes/ticketRoutes");
 
+const loggerMiddleware = require("./middleware/loggerMiddleware");
+
 app.use(express.json());
+
+app.use(loggerMiddleware);
 
 app.use("/tickets", ticketRoutes);
 
