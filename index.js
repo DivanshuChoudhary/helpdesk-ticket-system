@@ -44,6 +44,22 @@ app.get("/tickets", (req, res) => {
     res.json(tickets);
 });
 
+app.get("/tickets/:id", (req, res) => {
+
+    const ticketId = Number(req.params.id);
+
+    const ticket = tickets.find((item) => item.id === ticketId);
+
+    if (!ticket) {
+        return res.status(404).json({
+            message: "Ticket not found"
+        });
+    }
+
+    res.json(ticket);
+
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
