@@ -93,10 +93,24 @@ const deleteTicket = (req, res) => {
 
 };
 
+// SEARCH Ticket
+const searchTickets = (req, res) => {
+
+    const { title } = req.query;
+
+    const filteredTickets = tickets.filter((ticket) =>
+        ticket.title.toLowerCase().includes(title.toLowerCase())
+    );
+
+    res.json(filteredTickets);
+
+};
+
 module.exports = {
     getAllTickets,
     getTicketById,
     createTicket,
     updateTicket,
-    deleteTicket
+    deleteTicket,
+    searchTickets
 };

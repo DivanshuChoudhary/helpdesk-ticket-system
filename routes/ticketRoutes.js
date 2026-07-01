@@ -6,10 +6,9 @@ const {
     getTicketById,
     createTicket,
     updateTicket,
-    deleteTicket
+    deleteTicket,
+    searchTickets
 } = require("../controllers/ticketController");
-
-const validateTicket = require("../middleware/validateTicket");
 
 const tickets = [
     {
@@ -38,6 +37,7 @@ const tickets = [
 // GET All Tickets
 router.get("/", getAllTickets);
 
+router.get("/search", searchTickets);
 
 // GET Ticket By ID
 router.get("/:id", getTicketById);
