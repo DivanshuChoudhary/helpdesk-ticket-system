@@ -46,38 +46,7 @@ app.get("/health", (req, res) => {
     res.send("Server is running successfully ✅");
 });
 
-app.get("/tickets", (req, res) => {
-    res.json(tickets);
-});
 
-app.get("/tickets/:id", (req, res) => {
-
-    const ticketId = Number(req.params.id);
-
-    const ticket = tickets.find((item) => item.id === ticketId);
-
-    if (!ticket) {
-        return res.status(404).json({
-            message: "Ticket not found"
-        });
-    }
-
-    res.json(ticket);
-
-});
-
-app.post("/tickets", (req, res) => {
-
-    const newTicket = req.body;
-
-    tickets.push(newTicket);
-
-    res.status(201).json({
-        message: "Ticket created successfully",
-        ticket: newTicket
-    });
-
-});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
