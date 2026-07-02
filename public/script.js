@@ -23,21 +23,11 @@ async function loadTickets() {
     }
 }
 
-loadTickets();
+const ticketTable = document.getElementById("ticketTable");
 
-const searchInput = document.querySelector(".top-bar input");
-
-searchInput.addEventListener("input", async () => {
-
-    const searchText = searchInput.value.trim();
-
-    if (searchText === "") {
-        loadTickets();
-        return;
-    }
-
+async function loadTickets() {
     try {
-        const response = await fetch(`/tickets/search?title=${searchText}`);
+        const response = await fetch("/tickets");
         const tickets = await response.json();
 
         ticketTable.innerHTML = "";
@@ -49,12 +39,17 @@ searchInput.addEventListener("input", async () => {
                     <td>${ticket.title}</td>
                     <td>${ticket.status}</td>
                     <td>${ticket.priority}</td>
+                    <td>
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
                 </tr>
             `;
         });
 
     } catch (error) {
-        console.error("Search Error:", error);
+        console.error(error);
     }
+}
 
-});
+loadTickets();
