@@ -1,44 +1,70 @@
-const table = document.getElementById("editTicketTable");
+const params = new URLSearchParams(window.location.search);
+const ticketId = params.get("id");
 
-async function loadTickets() {
+const title = document.getElementById("title");
+const description = document.getElementById("description");
+const status = document.getElementById("status");
+const priority = document.getElementById("priority");
+const ticketForm = document.getElementById("ticketForm");
 
-    const response = await fetch("/tickets");
+async function loadTicket() {
 
-    const tickets = await response.json();
+    try {
 
-    table.innerHTML = "";
+        const response = await fetch(`/tickets/${ticketId}`);
 
-    tickets.forEach(ticket => {
+        if (!response.ok) {
+            alert("Ticket not found!");
+            return;
+        }
 
-        table.innerHTML += `
-            <tr>
+        const ticket = await response.json();
 
-                <td>${ticket.id}</td>
+        title.value = ticket.title;
+        description.value = ticket.description;
+        status.value = ticket.status;
+        priority.value = ticket.priority;
 
-                <td>${ticket.title}</td>
-
-                <td>${ticket.status}</td>
-
-                <td>${ticket.priority}</td>
-
-                <td>
-                    <button onclick="editTicket(${ticket.id})">
-                        Edit
-                    </button>
-                </td>
-
-            </tr>
-        `;
-
-    });
+    } catch (error) {
+        console.error(error);
+        alert("Error loading ticket.");
+    }
 
 }
 
-function editTicket(id) {
+loadTicket();
 
-    // ✅ Edit page open hoga
-    window.location.href = `/edit-ticket?id=${id}`;
+ticketForm.addEventListener("submit", async (e) => {
 
-}
+    e.preventDefault();
 
-loadTickets();
+    const updatedTicket = {
+        title: title.value,
+        description: description.value,
+        status: status.value,
+        priority: priority.value
+    };
+
+    try {
+
+        const response = await fetch(`/tickets/${ticketId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedTicket)
+        });
+
+        if (response.ok) {
+            alert("✅ Ticket Updated Successfully!");
+            window.location.href = "/";
+        } else {
+            alert("❌ Update Failed!");
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert("Something went wrong!");
+    }
+
+});
