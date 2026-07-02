@@ -27,7 +27,13 @@ const getTicketById = (req, res) => {
 // CREATE Ticket
 const createTicket = (req, res) => {
 
-    const newTicket = req.body;
+    const newTicket = {
+        id: tickets.length + 1,
+        title: req.body.title,
+        description: req.body.description,
+        status: req.body.status,
+        priority: req.body.priority
+    };
 
     tickets.push(newTicket);
 

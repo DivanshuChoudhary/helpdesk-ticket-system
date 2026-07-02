@@ -12,50 +12,30 @@ const {
     searchTickets,
     filterTicketsByStatus,
     getTicketStats
-} = require("../controllers/ticketController");;
-
-const tickets = [
-    {
-        id: 1,
-        title: "Internet not working",
-        description: "Unable to connect to office WiFi",
-        status: "Open",
-        priority: "High"
-    },
-    {
-        id: 2,
-        title: "Printer issue",
-        description: "Printer is not printing documents",
-        status: "In Progress",
-        priority: "Medium"
-    },
-    {
-        id: 3,
-        title: "Email login problem",
-        description: "Forgot email password",
-        status: "Closed",
-        priority: "Low"
-    }
-];
+} = require("../controllers/ticketController");
 
 // GET All Tickets
 router.get("/", getAllTickets);
 
+// Search Tickets
 router.get("/search", searchTickets);
 
+// Filter Tickets
 router.get("/filter", filterTicketsByStatus);
 
+// Ticket Stats
 router.get("/stats", getTicketStats);
 
 // GET Ticket By ID
 router.get("/:id", getTicketById);
 
-// POST Ticket
+// Create Ticket
 router.post("/", validateTicket, createTicket);
 
+// Update Ticket
 router.put("/:id", updateTicket);
 
+// Delete Ticket
 router.delete("/:id", deleteTicket);
-
 
 module.exports = router;
