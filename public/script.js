@@ -19,11 +19,27 @@ async function loadTickets() {
                 <tr>
                     <td>${ticket.id}</td>
                     <td>${ticket.title}</td>
-                    <td>${ticket.status}</td>
-                    <td>${ticket.priority}</td>
+
                     <td>
-                        <button onclick="editTicket(${ticket.id})">✏️ Edit</button>
-                        <button onclick="deleteTicket(${ticket.id})">🗑️ Delete</button>
+                        <span class="status ${ticket.status.replace(/\s/g, '')}">
+                            ${ticket.status}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="priority ${ticket.priority}">
+                            ${ticket.priority}
+                        </span>
+                    </td>
+
+                    <td>
+                        <button class="edit-btn" onclick="editTicket(${ticket.id})">
+                            ✏️ Edit
+                        </button>
+
+                        <button class="delete-btn" onclick="deleteTicket(${ticket.id})">
+                            🗑️ Delete
+                        </button>
                     </td>
                 </tr>
             `;

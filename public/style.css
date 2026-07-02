@@ -25,23 +25,24 @@ header{
 .top-bar{
     display:flex;
     justify-content:space-between;
-    margin-bottom:20px;
+    align-items:center;
+    margin:25px 0;
 }
 
 .top-bar input{
     width:70%;
     padding:12px;
+    border-radius:8px;
     border:1px solid #ccc;
-    border-radius:6px;
     font-size:16px;
 }
 
 .top-bar button{
+    padding:12px 22px;
     background:#2563eb;
     color:white;
     border:none;
-    padding:12px 20px;
-    border-radius:6px;
+    border-radius:8px;
     cursor:pointer;
     font-size:16px;
 }
@@ -54,22 +55,28 @@ table{
     width:100%;
     border-collapse:collapse;
     background:white;
+    border-radius:12px;
+    overflow:hidden;
     box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
-th,td{
-    padding:15px;
-    text-align:left;
-    border-bottom:1px solid #ddd;
-}
-
-th{
+thead{
     background:#2563eb;
     color:white;
 }
 
-tr:hover{
-    background:#f1f5f9;
+th,
+td{
+    padding:15px;
+    text-align:left;
+}
+
+tbody tr:nth-child(even){
+    background:#f8fafc;
+}
+
+tbody tr:hover{
+    background:#e0f2fe;
 }
 
 .dashboard-cards{
@@ -81,20 +88,148 @@ tr:hover{
 
 .card{
     flex:1;
-    min-width:180px;
-    background:#ffffff;
-    padding:20px;
-    border-radius:10px;
+    min-width:200px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    padding:25px;
+    border-radius:15px;
     text-align:center;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
 }
 
 .card h3{
+    color:white;
     margin-bottom:10px;
-    color:#555;
 }
 
 .card h2{
-    color:#007bff;
-    font-size:32px;
+    color:#fff;
+    font-size:36px;
 }
+
+form{
+    width:450px;
+    margin:40px auto;
+    background:#fff;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+form label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+form input,
+form textarea,
+form select{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:16px;
+    box-sizing:border-box;
+}
+
+form textarea{
+    height:100px;
+    resize:none;
+}
+
+form button{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+form button:hover{
+    background:#1d4ed8;
+}
+
+/* Status Badges */
+
+.status{
+    padding:6px 12px;
+    border-radius:20px;
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.Open{
+    background:#22c55e;
+}
+
+.InProgress{
+    background:#f59e0b;
+}
+
+.Closed{
+    background:#ef4444;
+}
+
+/* Priority Badges */
+
+.priority{
+    padding:6px 12px;
+    border-radius:20px;
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.High{
+    background:#dc2626;
+}
+
+.Medium{
+    background:#f59e0b;
+}
+
+.Low{
+    background:#16a34a;
+}
+
+/* Buttons */
+
+.edit-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+    margin-right:8px;
+}
+
+.delete-btn{
+    background:#dc2626;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.edit-btn:hover{
+    background:#1d4ed8;
+}
+
+.delete-btn:hover{
+    background:#b91c1c;
+}
+
