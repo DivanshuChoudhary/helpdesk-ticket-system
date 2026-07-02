@@ -9,14 +9,12 @@ const closedTickets = document.getElementById("closedTickets");
 // Load Tickets
 async function loadTickets() {
     try {
-
         const response = await fetch("/tickets");
         const tickets = await response.json();
 
         ticketTable.innerHTML = "";
 
         tickets.forEach((ticket) => {
-
             ticketTable.innerHTML += `
                 <tr>
                     <td>${ticket.id}</td>
@@ -24,25 +22,21 @@ async function loadTickets() {
                     <td>${ticket.status}</td>
                     <td>${ticket.priority}</td>
                     <td>
-                        <button onclick="deleteTicket(${ticket.id})">
-                            Delete
-                        </button>
+                        <button onclick="editTicket(${ticket.id})">✏️ Edit</button>
+                        <button onclick="deleteTicket(${ticket.id})">🗑️ Delete</button>
                     </td>
                 </tr>
             `;
-
         });
 
     } catch (error) {
-        console.error(error);
+        console.error("Error loading tickets:", error);
     }
 }
 
 // Load Dashboard Stats
 async function loadStats() {
-
     try {
-
         const response = await fetch("/tickets/stats");
         const stats = await response.json();
 
@@ -52,9 +46,8 @@ async function loadStats() {
         closedTickets.textContent = stats.closedTickets;
 
     } catch (error) {
-        console.error(error);
+        console.error("Error loading stats:", error);
     }
-
 }
 
 // Delete Ticket
@@ -76,7 +69,11 @@ async function deleteTicket(id) {
     } catch (error) {
         console.error(error);
     }
+}
 
+// Edit Ticket
+function editTicket(id) {
+    window.location.href = `/edit-ticket?id=${id}`;
 }
 
 loadTickets();
