@@ -21,9 +21,12 @@ app.get("/create-ticket", (req, res) => {
 });
 
 app.get("/edit-list", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "edit-list.html"));
+});
 
-    res.sendFile(path.join(__dirname,"views","edit-list.html"));
-
+// ✅ NEW ROUTE (sirf ye add kiya hai)
+app.get("/edit-ticket", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "edit-ticket.html"));
 });
 
 app.use(loggerMiddleware);
@@ -31,7 +34,6 @@ app.use(loggerMiddleware);
 app.use("/tickets", ticketRoutes);
 
 const PORT = 3000;
-
 
 app.get("/about", (req, res) => {
     res.send("HelpDesk Ticket System API Version 1.0");

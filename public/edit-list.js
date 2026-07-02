@@ -34,9 +34,10 @@ async function loadTickets() {
 
 }
 
-function editTicket(id){
+function editTicket(id) {
 
-    window.location.href = `/create-ticket?id=${id}`;
+    // ✅ Edit page open hoga
+    window.location.href = `/edit-ticket?id=${id}`;
 
 }
 

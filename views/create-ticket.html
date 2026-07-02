@@ -46,27 +46,24 @@
             <option>High</option>
         </select>
 
-        <button type="submit">
-            Create Ticket
-        </button>
+        <button type="submit" id="submitBtn">
+    Create Ticket
+</button>
 
     </form>
 
-    <form id="ticketForm">
+    <hr>
 
-    <!-- Form fields -->
+    <p style="text-align:center; margin-top:20px;">
+        Want to update an existing ticket?
+    </p>
 
-    <button type="submit">Create Ticket</button>
-
-</form>
-
-<hr>
-
-<p>Want to update an existing ticket?</p>
-
-<button onclick="window.location.href='/edit-list'">
-    Edit Existing Ticket
-</button>
+    <button
+        onclick="window.location.href='/edit-list'"
+        style="width:100%; padding:12px; margin-top:10px;"
+    >
+        Edit Existing Ticket
+    </button>
 
 </div>
 

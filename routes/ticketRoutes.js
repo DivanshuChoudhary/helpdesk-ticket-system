@@ -14,8 +14,10 @@ const {
     getTicketStats
 } = require("../controllers/ticketController");
 
-// GET All Tickets
-router.get("/", getAllTickets);
+
+// =======================
+// 📌 STATIC / SPECIAL ROUTES (IMPORTANT ORDER)
+// =======================
 
 // Search Tickets
 router.get("/search", searchTickets);
@@ -23,19 +25,28 @@ router.get("/search", searchTickets);
 // Filter Tickets
 router.get("/filter", filterTicketsByStatus);
 
-// Ticket Stats
+// Stats
 router.get("/stats", getTicketStats);
 
-// GET Ticket By ID
-router.get("/:id", getTicketById);
 
-// Create Ticket
+// =======================
+// 📌 CRUD ROUTES
+// =======================
+
+// Get all tickets
+router.get("/", getAllTickets);
+
+// Create ticket
 router.post("/", validateTicket, createTicket);
 
-// Update Ticket
+// Get single ticket by ID
+router.get("/:id", getTicketById);
+
+// Update ticket
 router.put("/:id", updateTicket);
 
-// Delete Ticket
+// Delete ticket
 router.delete("/:id", deleteTicket);
+
 
 module.exports = router;
