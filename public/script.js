@@ -89,7 +89,7 @@ async function deleteTicket(id) {
 
 // Edit Ticket
 function editTicket(id) {
-    window.location.href = `/edit-ticket?id=${id}`;
+    window.location.href = `/create-ticket?id=${id}`;
 }
 
 loadTickets();
