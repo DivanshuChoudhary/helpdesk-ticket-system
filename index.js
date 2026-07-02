@@ -20,6 +20,12 @@ app.get("/create-ticket", (req, res) => {
     res.sendFile(path.join(__dirname, "views", "create-ticket.html"));
 });
 
+app.get("/edit-list", (req, res) => {
+
+    res.sendFile(path.join(__dirname,"views","edit-list.html"));
+
+});
+
 app.use(loggerMiddleware);
 
 app.use("/tickets", ticketRoutes);
