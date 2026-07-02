@@ -9,6 +9,7 @@ const closedTickets = document.getElementById("closedTickets");
 // Load Tickets
 async function loadTickets() {
     try {
+
         const response = await fetch("/tickets");
         const tickets = await response.json();
 
@@ -18,6 +19,7 @@ async function loadTickets() {
             ticketTable.innerHTML += `
                 <tr>
                     <td>${ticket.id}</td>
+
                     <td>${ticket.title}</td>
 
                     <td>
@@ -33,10 +35,6 @@ async function loadTickets() {
                     </td>
 
                     <td>
-                        <button class="edit-btn" onclick="editTicket(${ticket.id})">
-                            ✏️ Edit
-                        </button>
-
                         <button class="delete-btn" onclick="deleteTicket(${ticket.id})">
                             🗑️ Delete
                         </button>
@@ -53,6 +51,7 @@ async function loadTickets() {
 // Load Dashboard Stats
 async function loadStats() {
     try {
+
         const response = await fetch("/tickets/stats");
         const stats = await response.json();
 
@@ -85,11 +84,6 @@ async function deleteTicket(id) {
     } catch (error) {
         console.error(error);
     }
-}
-
-// Edit Ticket
-function editTicket(id) {
-    window.location.href = `/create-ticket?id=${id}`;
 }
 
 loadTickets();
