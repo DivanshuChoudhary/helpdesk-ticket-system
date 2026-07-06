@@ -9,43 +9,51 @@ const closedTickets = document.getElementById("closedTickets");
 // Load Tickets
 async function loadTickets() {
     try {
-
         const response = await fetch("/tickets");
         const tickets = await response.json();
 
-        ticketTable.innerHTML = "";
-
-        tickets.forEach((ticket) => {
-            ticketTable.innerHTML += `
-                <tr>
-                    <td>${ticket.id}</td>
-
-                    <td>${ticket.title}</td>
-
-                    <td>
-                        <span class="status ${ticket.status.replace(/\s/g, '')}">
-                            ${ticket.status}
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="priority ${ticket.priority}">
-                            ${ticket.priority}
-                        </span>
-                    </td>
-
-                    <td>
-                        <button class="delete-btn" onclick="deleteTicket(${ticket.id})">
-                            🗑️ Delete
-                        </button>
-                    </td>
-                </tr>
-            `;
-        });
+        displayTickets(tickets);
 
     } catch (error) {
         console.error("Error loading tickets:", error);
     }
+}
+
+// Display Tickets
+function displayTickets(tickets) {
+
+    ticketTable.innerHTML = "";
+
+    tickets.forEach((ticket) => {
+
+        ticketTable.innerHTML += `
+            <tr>
+                <td>${ticket.id}</td>
+
+                <td>${ticket.title}</td>
+
+                <td>
+                    <span class="status ${ticket.status.replace(/\s/g, "")}">
+                        ${ticket.status}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="priority ${ticket.priority}">
+                        ${ticket.priority}
+                    </span>
+                </td>
+
+                <td>
+                    <button class="delete-btn" onclick="deleteTicket(${ticket.id})">
+                        🗑️ Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+
+    });
+
 }
 
 // Load Dashboard Stats
@@ -68,9 +76,7 @@ async function loadStats() {
 // Delete Ticket
 async function deleteTicket(id) {
 
-    const confirmDelete = confirm("Delete this ticket?");
-
-    if (!confirmDelete) return;
+    if (!confirm("Delete this ticket?")) return;
 
     try {
 
@@ -86,58 +92,47 @@ async function deleteTicket(id) {
     }
 }
 
-async function searchTickets() {
+// ======================
+// SEARCH TICKETS
+// ======================
 
-    const keyword = document.getElementById("searchInput").value;
+async function searchTickets() {
 
     try {
 
-        let url = "/tickets";
+        const keyword = document.getElementById("searchInput").value.trim();
 
-        if (keyword.trim() !== "") {
-            url = `/tickets/search?title=${encodeURIComponent(keyword)}`;
+        console.log("Searching:", keyword);
+
+        if (keyword === "") {
+            loadTickets();
+            return;
         }
 
-        const response = await fetch(url);
+        const response = await fetch(`/tickets/search?title=${encodeURIComponent(keyword)}`);
+
         const tickets = await response.json();
 
-        ticketTable.innerHTML = "";
+        console.log("Result:", tickets);
 
-        tickets.forEach((ticket) => {
-
-            ticketTable.innerHTML += `
-                <tr>
-                    <td>${ticket.id}</td>
-                    <td>${ticket.title}</td>
-
-                    <td>
-                        <span class="status ${ticket.status.replace(/\s/g, "")}">
-                            ${ticket.status}
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="priority ${ticket.priority}">
-                            ${ticket.priority}
-                        </span>
-                    </td>
-
-                    <td>
-                        <button class="delete-btn"
-                            onclick="deleteTicket(${ticket.id})">
-                            🗑️ Delete
-                        </button>
-                    </td>
-                </tr>
-            `;
-
-        });
+        displayTickets(tickets);
 
     } catch (error) {
-        console.log(error);
+        console.error("Search Error:", error);
     }
 
 }
 
+
+
+// Initial Load
 loadTickets();
 loadStats();
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const searchInput = document.getElementById("searchInput");
+
+    searchInput.addEventListener("input", searchTickets);
+
+});
