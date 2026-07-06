@@ -1,3 +1,10 @@
+alert("NEW SCRIPT LOADED");
+
+const ticketTable = document.getElementById("ticketTable");
+
+// Dashboard Cards
+const totalTickets = document.getElementById("totalTickets");
+
 const ticketTable = document.getElementById("ticketTable");
 
 // Dashboard Cards
