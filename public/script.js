@@ -6,20 +6,10 @@ const openTickets = document.getElementById("openTickets");
 const inProgressTickets = document.getElementById("inProgressTickets");
 const closedTickets = document.getElementById("closedTickets");
 
-// Load Tickets
-async function loadTickets() {
-    try {
-        const response = await fetch("/tickets");
-        const tickets = await response.json();
+// ========================
+// DISPLAY TICKETS
+// ========================
 
-        displayTickets(tickets);
-
-    } catch (error) {
-        console.error("Error loading tickets:", error);
-    }
-}
-
-// Display Tickets
 function displayTickets(tickets) {
 
     ticketTable.innerHTML = "";
@@ -56,11 +46,38 @@ function displayTickets(tickets) {
 
 }
 
-// Load Dashboard Stats
+// ========================
+// LOAD TICKETS
+// ========================
+
+async function loadTickets() {
+
+    try {
+
+        const response = await fetch("/tickets");
+
+        const tickets = await response.json();
+
+        displayTickets(tickets);
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+// ========================
+// LOAD DASHBOARD
+// ========================
+
 async function loadStats() {
+
     try {
 
         const response = await fetch("/tickets/stats");
+
         const stats = await response.json();
 
         totalTickets.textContent = stats.totalTickets;
@@ -69,11 +86,17 @@ async function loadStats() {
         closedTickets.textContent = stats.closedTickets;
 
     } catch (error) {
-        console.error("Error loading stats:", error);
+
+        console.error(error);
+
     }
+
 }
 
-// Delete Ticket
+// ========================
+// DELETE
+// ========================
+
 async function deleteTicket(id) {
 
     if (!confirm("Delete this ticket?")) return;
@@ -81,58 +104,73 @@ async function deleteTicket(id) {
     try {
 
         await fetch(`/tickets/${id}`, {
+
             method: "DELETE"
+
         });
 
         loadTickets();
         loadStats();
 
     } catch (error) {
+
         console.error(error);
+
     }
+
 }
 
-// ======================
-// SEARCH TICKETS
-// ======================
+// ========================
+// SEARCH
+// ========================
 
 async function searchTickets() {
 
     try {
 
-        const keyword = document.getElementById("searchInput").value.trim();
-
-        console.log("Searching:", keyword);
+        const keyword = document
+            .getElementById("searchInput")
+            .value
+            .trim();
 
         if (keyword === "") {
+
             loadTickets();
             return;
+
         }
 
-        const response = await fetch(`/tickets/search?title=${encodeURIComponent(keyword)}`);
+        const response = await fetch(
+            `/tickets/search?title=${encodeURIComponent(keyword)}`
+        );
 
         const tickets = await response.json();
-
-        console.log("Result:", tickets);
 
         displayTickets(tickets);
 
     } catch (error) {
-        console.error("Search Error:", error);
+
+        console.error(error);
+
     }
 
 }
 
+// ========================
+// INITIAL LOAD
+// ========================
 
-
-// Initial Load
 loadTickets();
 loadStats();
 
-document.addEventListener("DOMContentLoaded", () => {
+// ========================
+// SEARCH EVENT
+// ========================
 
-    const searchInput = document.getElementById("searchInput");
+const searchInput = document.getElementById("searchInput");
+
+if (searchInput) {
 
     searchInput.addEventListener("input", searchTickets);
 
-});
+}
