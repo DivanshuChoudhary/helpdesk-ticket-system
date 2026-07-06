@@ -41,9 +41,11 @@
 
         <div class="top-bar">
             <input
-                type="text"
-                placeholder="Search Ticket..."
-            >
+    type="text"
+    id="searchInput"
+    placeholder="Search Ticket..."
+    onkeyup="searchTickets()"
+/>
 
             <button onclick="window.location.href='/create-ticket'">
     Add Ticket

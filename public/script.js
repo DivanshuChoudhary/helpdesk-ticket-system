@@ -86,5 +86,58 @@ async function deleteTicket(id) {
     }
 }
 
+async function searchTickets() {
+
+    const keyword = document.getElementById("searchInput").value;
+
+    try {
+
+        let url = "/tickets";
+
+        if (keyword.trim() !== "") {
+            url = `/tickets/search?title=${encodeURIComponent(keyword)}`;
+        }
+
+        const response = await fetch(url);
+        const tickets = await response.json();
+
+        ticketTable.innerHTML = "";
+
+        tickets.forEach((ticket) => {
+
+            ticketTable.innerHTML += `
+                <tr>
+                    <td>${ticket.id}</td>
+                    <td>${ticket.title}</td>
+
+                    <td>
+                        <span class="status ${ticket.status.replace(/\s/g, "")}">
+                            ${ticket.status}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="priority ${ticket.priority}">
+                            ${ticket.priority}
+                        </span>
+                    </td>
+
+                    <td>
+                        <button class="delete-btn"
+                            onclick="deleteTicket(${ticket.id})">
+                            🗑️ Delete
+                        </button>
+                    </td>
+                </tr>
+            `;
+
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
 loadTickets();
 loadStats();
